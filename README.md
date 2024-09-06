@@ -51,22 +51,28 @@ Bem-vindo ao **Test1-ProdFlow**! Este projeto é um sistema dinâmico e completo
 - Vá até a aba **Cadastro de Produto** no menu lateral.
 - Preencha as informações do novo produto.
 - Clique em **Cadastrar Produto**.
+![Cadastro de Produto](https://github.com/ViniciusKanh/Test01-ProdTrack/blob/master/public/img/Cadastro%20de%20Produto.jpg.png)
 
 ### 📝 **Cadastro de OP**
 - Navegue até a aba **Cadastro de OP**.
 - Selecione o produto e insira as informações necessárias, como quantidade e descrição.
 - Clique em **Cadastrar OP**.
+![Cadastro de OP](https://github.com/ViniciusKanh/Test01-ProdTrack/blob/master/public/img/Cadastro%20de%20OP.png)
 
 ### 🛠️ **Acompanhamento de OP**
 - Na aba **Acompanhamento de OP**, você pode ver todas as OPs criadas.
 - Filtre e altere o status da OP (Em produção, Concluída ou Em espera).
+![Acompanhamento de OP](https://github.com/ViniciusKanh/Test01-ProdTrack/blob/master/public/img/Acopanhamento%20de%20OP.png)
 
 ### 📊 **Dashboard**
 - O Dashboard exibe gráficos interativos que mostram a quantidade de OPs concluídas, em produção e em espera.
+![Dashboard](https://github.com/ViniciusKanh/Test01-ProdTrack/blob/master/public/img/Dashboard.png)
 
 ### 🏗️ **Gestão de Estoque**
 - Na aba **Estoque**, visualize produtos liberados (concluídos) e bloqueados (em produção/espera).
 - Pesquise por número da OP ou nome do produto para filtrar os resultados.
+![Gestão de Estoque](https://github.com/ViniciusKanh/Test01-ProdTrack/blob/master/public/img/Estoque.png)
+
 
 ## 📂 **Estrutura do Projeto**
 
