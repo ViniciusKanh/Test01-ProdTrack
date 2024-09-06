@@ -22,7 +22,7 @@ Bem-vindo ao **Test1-ProdFlow**! Este projeto é um sistema dinâmico e completo
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/test1-prodflow.git
+    git clone https://github.com/ViniciusKanh/Test01-ProdTrack.git
     ```
 
 2. Navegue até o diretório do projeto:
