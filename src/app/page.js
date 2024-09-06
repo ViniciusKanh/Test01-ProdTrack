@@ -7,7 +7,7 @@ import CadastroOP from '../pages/CadastroOP';
 import AcompanhamentoOP from '../pages/AcompanhamentoOP';
 import CadastroProduto from '../pages/CadastroProduto';
 import Estoque from '../pages/Estoque'; // Importa o componente Estoque
-import Dashboard from '../pages/Dashboard'; // Importa o Dashboard
+import Dashboard from '../pages/dashboard'; // Importa o Dashboard
 
 export default function Home() {
   const [selectedPage, setSelectedPage] = useState('Acompanhamento');
