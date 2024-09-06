@@ -1,33 +1,117 @@
-// src/app/api/orders/route.js
+import { promises as fs } from 'fs';
+import path from 'path';
 
-let orders = [
-    { id: 1, orderNumber: 'OP001', description: 'Cadeira de Madeira', quantity: 10, status: 'Concluída' },
-    { id: 2, orderNumber: 'OP002', description: 'Mesa de Jantar', quantity: 5, status: 'Em produção' },
-    { id: 3, orderNumber: 'OP003', description: 'Sofá de Couro', quantity: 2, status: 'Em espera' },
-    { id: 4, orderNumber: 'OP004', description: 'Armário de Cozinha', quantity: 7, status: 'Concluída' },
-    { id: 5, orderNumber: 'OP005', description: 'Cama de Casal', quantity: 3, status: 'Em espera' },
-    { id: 6, orderNumber: 'OP006', description: 'Estante para Livros', quantity: 12, status: 'Em produção' },
-    { id: 7, orderNumber: 'OP007', description: 'Mesa de Centro', quantity: 8, status: 'Concluída' },
-    { id: 8, orderNumber: 'OP008', description: 'Poltrona de Madeira', quantity: 6, status: 'Em produção' },
-    { id: 9, orderNumber: 'OP009', description: 'Mesa de Escritório', quantity: 4, status: 'Em espera' },
-    { id: 10, orderNumber: 'OP010', description: 'Guarda-Roupa de Madeira', quantity: 1, status: 'Concluída' },
-  ];
-  
-  export async function GET(request) {
+// Caminho para o arquivo JSON onde as ordens de produção são armazenadas
+const ordersFilePath = path.join(process.cwd(), 'orders.json');
+
+// Função para carregar as ordens de produção
+async function loadOrders() {
+  try {
+    const data = await fs.readFile(ordersFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log('Arquivo orders.json não encontrado. Criando um novo arquivo...');
+      await fs.writeFile(ordersFilePath, JSON.stringify([], null, 2));
+      return [];
+    } else {
+      throw error;
+    }
+  }
+}
+
+// Função para salvar as ordens de produção
+async function saveOrders(orders) {
+  const data = JSON.stringify(orders, null, 2);
+  await fs.writeFile(ordersFilePath, data, 'utf8');
+}
+
+// GET: Retorna todas as ordens de produção
+export async function GET(request) {
+  try {
+    const orders = await loadOrders();
     return new Response(JSON.stringify(orders), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  }
-  
-  export async function POST(request) {
-    const newOrder = await request.json();
-    newOrder.id = orders.length + 1;
-    orders.push(newOrder);
-  
-    return new Response(JSON.stringify({ message: 'OP criada com sucesso' }), {
-      status: 201,
+  } catch (error) {
+    console.error('Erro ao carregar ordens de produção:', error);
+    return new Response(JSON.stringify({ message: 'Erro ao carregar ordens de produção.' }), {
+      status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  
+}
+
+// POST: Adiciona uma nova ordem de produção
+export async function POST(request) {
+  try {
+    const newOrder = await request.json();
+    
+    if (!newOrder.orderNumber || !newOrder.product || !newOrder.quantity || !newOrder.status) {
+      return new Response(JSON.stringify({ message: 'Campos obrigatórios ausentes.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const orders = await loadOrders();
+    
+    // Atribui um ID incremental para cada nova OP
+    newOrder.id = orders.length ? orders[orders.length - 1].id + 1 : 1;
+    
+    // Adiciona a nova ordem à lista
+    orders.push(newOrder);
+    await saveOrders(orders);
+
+    return new Response(JSON.stringify({ message: 'Ordem de produção cadastrada com sucesso.' }), {
+      status: 201,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Erro ao cadastrar ordem de produção:', error);
+    return new Response(JSON.stringify({ message: 'Erro ao cadastrar ordem de produção.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+// PUT: Atualiza o status de uma ordem de produção
+export async function PUT(request) {
+  try {
+    const { id, status } = await request.json();
+
+    if (!id || !status) {
+      return new Response(JSON.stringify({ message: 'ID e status são obrigatórios.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const orders = await loadOrders();
+    const orderIndex = orders.findIndex((order) => order.id === id);
+
+    if (orderIndex === -1) {
+      return new Response(JSON.stringify({ message: 'Ordem não encontrada.' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Atualiza o status da ordem
+    orders[orderIndex].status = status;
+    await saveOrders(orders);
+
+    return new Response(JSON.stringify({ message: 'Status atualizado com sucesso.' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar a ordem:', error);
+    return new Response(JSON.stringify({ message: 'Erro ao atualizar a ordem.' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
