@@ -10,7 +10,7 @@ import Estoque from '../pages/Estoque'; // Importa o componente Estoque
 import Dashboard from '../pages/Dashboard'; // Importa o Dashboard
 
 export default function Home() {
-  const [selectedPage, setSelectedPage] = useState('Dashboard');
+  const [selectedPage, setSelectedPage] = useState('Acompanhamento');
 
   return (
     <div className="flex min-h-screen bg-gray-100">
