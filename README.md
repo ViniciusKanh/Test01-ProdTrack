@@ -93,14 +93,11 @@ Durante o desenvolvimento deste sistema, vários desafios interessantes foram en
 - Adicionar mais gráficos e relatórios customizados.
 - Integração com uma API externa para envio automático de relatórios por e-mail.
 
-## 🛡️ **Licença**
-Este projeto está licenciado sob a MIT License. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ## 📞 **Contato**
 Se você tiver alguma dúvida, problema ou sugestão, entre em contato:
 
 - **Vinicius Santos**  
-  ✉️ Email: vinicius.santos@email.com  
+  ✉️ Email: vinicius.santos@ifsp.edu.br
   🔗 [LinkedIn](https://www.linkedin.com/in/vinicius-souza-santoss/)  
 
 ---
