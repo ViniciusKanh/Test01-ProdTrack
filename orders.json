@@ -37,7 +37,7 @@
     "description": "OP para o próximo dia Útil.",
     "quantity": 1,
     "product": "Armário de Cozinha",
-    "status": "Concluída"
+    "status": "Em produção"
   },
   {
     "id": 6,
@@ -68,7 +68,7 @@
     "description": "Ordem de Produção para o dia 25 de Dezembro",
     "quantity": 10,
     "product": "Estante para Livros",
-    "status": "Concluída",
+    "status": "Em produção",
     "id": 9
   },
   {
